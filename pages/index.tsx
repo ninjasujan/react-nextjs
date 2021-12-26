@@ -1,4 +1,14 @@
 import MeetupList from "../components/meetups/MeetupList";
+import { AppProps } from "next/dist/shared/lib/router/router";
+import { GetStaticProps } from "next";
+
+type meetType = {
+  id: string;
+  title: string;
+  image: string;
+  address: string;
+  description: string;
+};
 
 const DUMMY_MEETUPS = [
   {
@@ -19,8 +29,21 @@ const DUMMY_MEETUPS = [
   },
 ];
 
-function HomePage() {
-  return <MeetupList meetups={DUMMY_MEETUPS} />;
+interface propType extends AppProps {
+  meetups: Array<meetType>;
 }
+
+function HomePage(props: propType) {
+  return <MeetupList meetups={props.meetups} />;
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      meetups: DUMMY_MEETUPS,
+    },
+    revalidate: 10,
+  };
+};
 
 export default HomePage;

@@ -2,7 +2,7 @@ import MainNavigation from "./MainNavigation";
 import classes from "./Layout.module.css";
 
 type propType = {
-  children?: any;
+  children?: React.ReactNode;
 };
 
 function Layout(props: propType) {
