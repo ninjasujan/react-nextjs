@@ -1,3 +1,4 @@
+import React from "react";
 import MeetupItem from "./MeetupItem";
 import classes from "./MeetupList.module.css";
 
@@ -13,10 +14,10 @@ type propType = {
   meetups: Array<arryType>;
 };
 
-function MeetupList({ meetups }: propType) {
+const MeetupList: React.FC<propType> = (props) => {
   return (
     <ul className={classes.list}>
-      {meetups.map((meetup) => (
+      {props.meetups.map((meetup) => (
         <MeetupItem
           key={meetup.id}
           id={meetup.id}
@@ -27,6 +28,6 @@ function MeetupList({ meetups }: propType) {
       ))}
     </ul>
   );
-}
+};
 
 export default MeetupList;
