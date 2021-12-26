@@ -1,3 +1,4 @@
+import React from "react";
 import { useRouter } from "next/router";
 import Card from "../ui/Card";
 import classes from "./MeetupItem.module.css";
@@ -9,7 +10,7 @@ type propType = {
   id: string;
 };
 
-function MeetupItem(props: propType) {
+const MeetupItem: React.FC<propType> = (props) => {
   const router = useRouter();
 
   const showMeetHandler = () => {
@@ -32,6 +33,6 @@ function MeetupItem(props: propType) {
       </Card>
     </li>
   );
-}
+};
 
 export default MeetupItem;

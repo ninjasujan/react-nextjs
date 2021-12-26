@@ -1,3 +1,4 @@
+import React from "react";
 import classes from "./MeetupDetails.module.css";
 
 type propType = {
@@ -7,7 +8,7 @@ type propType = {
   description: string;
 };
 
-function MeetupDetail(props: propType) {
+const MeetupDetail: React.FC<propType> = (props) => {
   return (
     <section className={classes.detail}>
       <img src={props.image} alt={props.title} />
@@ -16,6 +17,6 @@ function MeetupDetail(props: propType) {
       <p>{props.description}</p>
     </section>
   );
-}
+};
 
 export default MeetupDetail;

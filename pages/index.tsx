@@ -1,6 +1,11 @@
 import MeetupList from "../components/meetups/MeetupList";
 import { AppProps } from "next/dist/shared/lib/router/router";
-import { GetStaticProps } from "next";
+import {
+  GetServerSideProps,
+  GetStaticProps,
+  GetServerSidePropsContext,
+  GetStaticPropsContext,
+} from "next";
 
 type meetType = {
   id: string;
@@ -33,11 +38,23 @@ interface propType extends AppProps {
   meetups: Array<meetType>;
 }
 
-function HomePage(props: propType) {
+const HomePage: React.FC<propType> = (props) => {
   return <MeetupList meetups={props.meetups} />;
-}
+};
 
-export const getStaticProps: GetStaticProps = async () => {
+// export const getServerSideProps: GetServerSideProps = async (
+//   context: GetServerSidePropsContext
+// ) => {
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//   };
+// };
+
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
   return {
     props: {
       meetups: DUMMY_MEETUPS,
