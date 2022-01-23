@@ -3,7 +3,7 @@ import MeetupItem from "./MeetupItem";
 import classes from "./MeetupList.module.css";
 
 type arryType = {
-  id: string;
+  _id: string;
   image: string;
   title: string;
   address: string;
@@ -19,8 +19,8 @@ const MeetupList: React.FC<propType> = (props) => {
     <ul className={classes.list}>
       {props.meetups.map((meetup) => (
         <MeetupItem
-          key={meetup.id}
-          id={meetup.id}
+          key={meetup._id}
+          _id={meetup._id}
           image={meetup.image}
           title={meetup.title}
           address={meetup.address}

@@ -7,14 +7,14 @@ type propType = {
   image: string;
   address: string;
   title: string;
-  id: string;
+  _id: string;
 };
 
 const MeetupItem: React.FC<propType> = (props) => {
   const router = useRouter();
 
   const showMeetHandler = () => {
-    router.push(`/${props.id}`);
+    router.push(`/${props._id}`);
   };
 
   return (

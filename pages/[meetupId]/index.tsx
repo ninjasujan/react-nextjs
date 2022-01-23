@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import MeetupDetail from "../../components/meetups/MeetupDetails";
 import { GetStaticProps, GetStaticPropsContext, GetStaticPaths } from "next";
+import { SERVER_URL } from "../../constant/app.constant";
+
+interface IMeetup {
+  _id: string;
+  image: string;
+  title: string;
+  address: string;
+  description: string;
+}
 
 type propType = {
-  meetup: {
-    image: string;
-    title: string;
-    address: string;
-    description: string;
-  };
+  meetup: IMeetup;
 };
 
 const MeetupDetails: React.FC<propType> = (props) => {
+  const router = useRouter();
+
+  // fallback page to display in dynamic page generation
+  if (router.isFallback) {
+    return <h4>Loading.....</h4>;
+  }
+
   return (
     <MeetupDetail
       image={props.meetup.image}
@@ -23,38 +35,37 @@ const MeetupDetails: React.FC<propType> = (props) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const response = await fetch(`${SERVER_URL}/api/meetups?limit=3`, {
+    method: "GET",
+  });
+  const meetups: Array<IMeetup> = await response.json();
+  const meetupPaths = meetups.map((meet) => {
+    return {
+      params: { meetupId: meet._id.toString() },
+    };
+  });
   return {
-    fallback: false,
-    paths: [
-      {
-        params: {
-          meetupId: "m1",
-        },
-      },
-      {
-        params: {
-          meetupId: "m2",
-        },
-      },
-    ],
+    fallback: true,
+    paths: meetupPaths,
   };
 };
 
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  const meetupId = context.params?.meetupId;
-
+  const _id = context.params?.meetupId;
+  const response = await fetch(`${SERVER_URL}/api/meetup?_id=${_id}`, {
+    method: "GET",
+  });
+  const meetup: IMeetup = await response.json();
+  if (!meetup._id) {
+    return {
+      notFound: true,
+    };
+  }
   return {
     props: {
-      meetup: {
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1280px-Stadtbild_M%C3%BCnchen.jpg",
-        title: "First Meetup",
-        address: "Some Street 5, Some City",
-        description: "This is a first meetup",
-        id: meetupId,
-      },
+      meetup,
     },
   };
 };

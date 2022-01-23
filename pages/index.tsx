@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import MeetupList from "../components/meetups/MeetupList";
 import { AppProps } from "next/dist/shared/lib/router/router";
 import {
@@ -6,60 +7,40 @@ import {
   GetServerSidePropsContext,
   GetStaticPropsContext,
 } from "next";
+import { SERVER_URL } from "../constant/app.constant";
 
 type meetType = {
-  id: string;
+  _id: string;
   title: string;
   image: string;
   address: string;
   description: string;
 };
 
-const DUMMY_MEETUPS = [
-  {
-    id: "m1",
-    title: "A First Meetup",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1280px-Stadtbild_M%C3%BCnchen.jpg",
-    address: "Some address 5, 12345 Some City",
-    description: "This is a first meetup!",
-  },
-  {
-    id: "m2",
-    title: "A Second Meetup",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1280px-Stadtbild_M%C3%BCnchen.jpg",
-    address: "Some address 10, 12345 Some City",
-    description: "This is a second meetup!",
-  },
-];
-
 interface propType extends AppProps {
   meetups: Array<meetType>;
 }
 
 const HomePage: React.FC<propType> = (props) => {
-  return <MeetupList meetups={props.meetups} />;
+  return (
+    <React.Fragment>
+      <MeetupList meetups={props.meetups} />
+    </React.Fragment>
+  );
 };
-
-// export const getServerSideProps: GetServerSideProps = async (
-//   context: GetServerSidePropsContext
-// ) => {
-//   return {
-//     props: {
-//       meetups: DUMMY_MEETUPS,
-//     },
-//   };
-// };
 
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
+  const response = await fetch(`${SERVER_URL}/api/meetups`, {
+    method: "GET",
+  });
+  const meetups = await response.json();
   return {
     props: {
-      meetups: DUMMY_MEETUPS,
+      meetups,
     },
-    revalidate: 10,
+    revalidate: 100,
   };
 };
 
