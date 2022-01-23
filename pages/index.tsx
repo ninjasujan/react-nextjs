@@ -8,6 +8,9 @@ import {
   GetStaticPropsContext,
 } from "next";
 import { SERVER_URL } from "../constant/app.constant";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { uiState } from "../redux/store/ui.store";
+import { setLoader } from "../redux/store/ui.store";
 
 type meetType = {
   _id: string;
@@ -22,6 +25,13 @@ interface propType extends AppProps {
 }
 
 const HomePage: React.FC<propType> = (props) => {
+  const { loading } = useAppSelector(uiState);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setLoader(true));
+  }, []);
+
   return (
     <React.Fragment>
       <MeetupList meetups={props.meetups} />

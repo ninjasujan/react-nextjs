@@ -1,16 +1,16 @@
-import { useEffect } from "react";
+import { AppProps } from "next/app";
+import { Provider } from "react-redux";
 import "../styles/globals.css";
 import Layout from "../components/layout/Layout";
-import { AppProps } from "next/app";
+import { store } from "../redux/store/index.store";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  // useEffect(() => {
-  //   console.log("[Component Loading...]");
-  // }, []);
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <Provider store={store}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </Provider>
   );
 }
 
