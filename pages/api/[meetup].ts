@@ -19,4 +19,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+// Custom configs of the request
+export const config = {
+  api: {
+    sizeLimit: "1mb",
+    // bodyParser: false,
+  },
+};
+
 export default handler;

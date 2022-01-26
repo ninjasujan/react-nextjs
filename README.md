@@ -37,6 +37,14 @@
 
 ---
 
+**3. API Routes**
+
+1. File based route
+2. Handle GET and POST
+3. Dynamic API route
+4. Handle PUT, PATCH and DElETE
+5. Catch all route
+
 #### Some key concepts:
 
 Environment variables support:

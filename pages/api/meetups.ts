@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { MongoClient } from "mongodb";
+import { requestWrapper } from "../../middleware/middleware";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -20,4 +21,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default handler;
+export default requestWrapper(handler);

@@ -18,6 +18,7 @@ export const uiSlice = createSlice({
     },
   },
 });
+
 export const uiState = (state: RootState) => state.ui;
 export const { setLoader } = uiSlice.actions;
 export default uiSlice.reducer;

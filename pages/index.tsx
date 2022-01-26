@@ -30,6 +30,8 @@ const HomePage: React.FC<propType> = (props) => {
 
   useEffect(() => {
     dispatch(setLoader(true));
+    document.cookie = "name=sujan";
+    document.cookie = "expires=3600";
   }, []);
 
   return (
@@ -53,5 +55,16 @@ export const getStaticProps: GetStaticProps = async (
     revalidate: 100,
   };
 };
+
+// export const getServerSideProps: GetServerSideProps = async (
+//   context: GetServerSidePropsContext
+// ) => {
+//   console.log(context.req.cookies);
+//   return {
+//     props: {
+//       meetups: [],
+//     },
+//   };
+// };
 
 export default HomePage;
