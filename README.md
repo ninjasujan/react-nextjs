@@ -45,6 +45,23 @@
 4. Handle PUT, PATCH and DElETE
 5. Catch all route
 
+---
+
+**4. Extra Features**
+
+1. Head component
+2. Image component
+3. Absolute imports and Module paths
+4. Static HTML export
+5. Redirects
+6. Environment variables
+
+---
+
+**5. Authentication**
+
+1. next-auth library
+
 #### Some key concepts:
 
 Environment variables support:
